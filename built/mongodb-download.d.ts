@@ -61,6 +61,7 @@ export declare class MongoDBPlatform {
     getCommonReleaseString(): string;
     getOSVersionString(): Promise<string>;
     getOtherOSVersionString(): Promise<string>;
+    getWindowsVersionString(): Promise<string>;
     getLinuxOSVersionString(): Promise<string>;
     getDebianVersionString(os: any): string;
     getFedoraVersionString(os: any): string;

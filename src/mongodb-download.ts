@@ -479,6 +479,8 @@ export class MongoDBPlatform {
   getOSVersionString(): Promise<string> {
     if ( this.getPlatform() === "linux" && this.getArch() !== "i686") {
       return this.getLinuxOSVersionString();
+    } else if( this.getPlatform() === "win32" ) {
+      return this.getWindowsVersionString();
     } else {
       return this.getOtherOSVersionString();
     }
@@ -487,6 +489,12 @@ export class MongoDBPlatform {
   getOtherOSVersionString(): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       reject("");
+    });
+  }
+  
+  getWindowsVersionString(): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      resolve("2008plus-ssl");
     });
   }
   
