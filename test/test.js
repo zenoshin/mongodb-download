@@ -110,5 +110,53 @@ describe('MongoDBDownload class', function() {
             expect(md5).to.be.an("string");
             done();
         });
-    });  
+    });
+
+    it('should return a archive name without ssl for osx before v3.5.5', function(done) {
+        let mongoDBDownload = new MongoDBDownload({platform: "darwin", version: "3.5.5"});
+        mongoDBDownload.getArchiveName().then(name => {
+            try {
+                expect(name).to.be.eq("mongodb-osx-x86_64-3.5.5.tgz");
+                done();
+            } catch(e) { 
+                done(e);
+            }
+        });
+    });
+
+    it('should return a archive name with ssl for osx since v3.5.6', function(done) {
+        let mongoDBDownload = new MongoDBDownload({platform: "darwin", version: "3.5.6"});
+        mongoDBDownload.getArchiveName().then(name => {
+            try {
+                expect(name).to.be.eq("mongodb-osx-ssl-x86_64-3.5.6.tgz");
+                done();
+            } catch(e) { 
+                done(e);
+            }
+        });
+    });
+
+    it('should return a archive name without ssl for win32 since v3.5.6', function(done) {
+        let mongoDBDownload = new MongoDBDownload({platform: "win32", version: "3.5.6"});
+        mongoDBDownload.getArchiveName().then(name => {
+            try {
+                expect(name).not.to.be.include("win32-ssl");
+                done();
+            } catch(e) { 
+                done(e);
+            }
+        });
+    });
+
+    it('should return a archive name without ssl for linux since v3.5.6', function(done) {
+        let mongoDBDownload = new MongoDBDownload({platform: "linux", version: "3.5.6"});
+        mongoDBDownload.getArchiveName().then(name => {
+            try {
+                expect(name).not.to.be.include("linux-ssl");
+                done();
+            } catch(e) { 
+                done(e);
+            }
+        });
+    });
 });

@@ -391,7 +391,10 @@ var MongoDBDownload = /** @class */ (function () {
         return new Promise(function (resolve, reject) {
             //var name = "mongodb-" + mongo_platform + "-" + mongo_arch;
             var name = "mongodb-" +
-                _this.mongoDBPlatform.getPlatform() + "-" +
+                _this.mongoDBPlatform.getPlatform();
+            if (_this.mongoDBPlatform.getPlatform() == "osx" && _this.getVersion() >= "3.5.6")
+                name += "-ssl";
+            name += "-" +
                 _this.mongoDBPlatform.getArch();
             _this.mongoDBPlatform.getOSVersionString().then(function (osString) {
                 osString && (name += "-" + osString);
